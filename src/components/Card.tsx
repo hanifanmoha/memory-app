@@ -26,7 +26,7 @@ function Card({ isOpen, onFlip, content }: ICard) {
     <div onClick={handleClick}>
       <ReactCardFlip
         isFlipped={isOpen}
-        containerClassName='w-24 h-24 cursor-pointer mx-1 my-1'
+        containerClassName='w-20 h-20 cursor-pointer mx-1 my-1'
       >
         <div className='absolute w-full h-full flex items-center justify-center border-2 rounded-lg'>
           <img style={{ maxWidth: '40%' }} src={background} alt='background' />
