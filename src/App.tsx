@@ -1,15 +1,7 @@
-import { useState } from 'react'
 import Card from './components/Card'
-import { randomize } from './utils/util'
 import { useGame } from './utils/useState'
 
 function App() {
-  // const MAPS = randomize()
-
-  // const [isOpen, setIsOpen] = useState(false)
-
-  // const handleFlip = () => setIsOpen(!isOpen)
-
   const { state, handleOpen, isOpen } = useGame()
 
   const numX = 4
@@ -25,25 +17,15 @@ function App() {
   }
 
   return (
-    <div className='h-screen flex items-center justify-center'>
-      <div className='flex-col'>
-        {arr.map((row, r) => {
-          return (
-            <div className='flex'>
-              {row.map((cell, c) => {
-                return (
-                  <Card
-                    key={`${r}--${c}`}
-                    isOpen={isOpen(cell.idx)}
-                    onFlip={() => handleOpen(cell.idx)}
-                    content={cell.val}
-                  />
-                )
-              })}
-            </div>
-          )
-        })}
-      </div>
+    <div className='max-w-md min-h-screen flex flex-wrap pt-12 pb-12 mx-auto justify-between align-top'>
+      {state.map((cell) => (
+        <Card
+          key={`${cell.idx}--${cell.val}`}
+          isOpen={isOpen(cell.idx)}
+          onFlip={() => handleOpen(cell.idx)}
+          content={cell.val}
+        />
+      ))}
     </div>
   )
 }

@@ -28,7 +28,7 @@ const images = [
   'whale',
 ]
 
-const LVL = 8
+const LVL = 16
 
 const problems = [...images.slice(0, LVL), ...images.slice(0, LVL)].sort(
   () => Math.random() - 0.5

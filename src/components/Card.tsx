@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ReactCardFlip from 'react-card-flip'
+import background from '../assets/background.png'
 
 type ICard = {
   content: string
@@ -25,13 +26,13 @@ function Card({ isOpen, onFlip, content }: ICard) {
     <div onClick={handleClick}>
       <ReactCardFlip
         isFlipped={isOpen}
-        containerClassName='w-32 h-32 cursor-pointer mx-1 my-1'
+        containerClassName='w-24 h-24 cursor-pointer mx-1 my-1'
       >
         <div className='absolute w-full h-full flex items-center justify-center border-2 rounded-lg'>
-          <p></p>
+          <img style={{ maxWidth: '40%' }} src={background} alt='background' />
         </div>
-        <div className='absolute w-full h-full flex items-center justify-center border-2 rounded-lg p-2'>
-          <img src={image} alt={content} />
+        <div className='absolute w-full h-full flex items-center justify-center border-2 rounded-lg'>
+          <img style={{ maxWidth: '75%' }} src={image} alt={content} />
         </div>
       </ReactCardFlip>
     </div>
