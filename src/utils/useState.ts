@@ -8,6 +8,7 @@ const images = [
   'cricket',
   'crocodile',
   'ducky',
+  'dragon',
   'elephant',
   'fox',
   'frog',
@@ -28,7 +29,7 @@ const images = [
   'whale',
 ]
 
-const LVL = 16
+const LVL = 26
 
 const problems = [...images.slice(0, LVL), ...images.slice(0, LVL)].sort(
   () => Math.random() - 0.5
