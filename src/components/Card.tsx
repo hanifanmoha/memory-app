@@ -1,41 +1,30 @@
-import cx from 'classnames'
-import styles from './Card.module.css'
+import ReactCardFlip from 'react-card-flip'
 
 type ICard = {
+  content: string
   isOpen: boolean
   onFlip: () => void
 }
 
-function Card({ isOpen, onFlip }: ICard) {
+function Card({ isOpen, onFlip, content }: ICard) {
+  function handleClick() {
+    if (isOpen) return
+    onFlip()
+  }
+
   return (
-    <div
-      className={cx('relative w-32 h-32 cursor-pointer', styles.perspective)}
-      onClick={onFlip}
-    >
-      <div
-        className={cx(
-          'relative w-full h-full transition-transform duration-700 transform',
-          { [styles.rotateY180]: isOpen }
-        )}
+    <div onClick={handleClick}>
+      <ReactCardFlip
+        isFlipped={isOpen}
+        containerClassName='w-32 h-32 cursor-pointer mx-1 my-1'
       >
-        <div
-          className={cx(
-            'absolute w-full h-full bg-blue-500 text-white flex items-center justify-center border-2 rounded-lg',
-            styles.backfaceHidden
-          )}
-        >
+        <div className='absolute w-full h-full bg-blue-500 text-white flex items-center justify-center border-2 rounded-lg'>
           <p>Back</p>
         </div>
-        <div
-          className={cx(
-            'absolute w-full h-full bg-green-500 text-white flex items-center justify-center border-2 rounded-lg',
-            styles.backfaceHidden,
-            styles.rotateY180
-          )}
-        >
-          <p>Front</p>
+        <div className='absolute w-full h-full bg-blue-500 text-white flex items-center justify-center border-2 rounded-lg'>
+          <p>{content}</p>
         </div>
-      </div>
+      </ReactCardFlip>
     </div>
   )
 }
