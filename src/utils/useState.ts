@@ -1,23 +1,38 @@
 import { useState } from 'react'
 
-const problems = [
-  'A',
-  'A',
-  'B',
-  'B',
-  'C',
-  'C',
-  'D',
-  'D',
-  'E',
-  'E',
-  'F',
-  'F',
-  'G',
-  'G',
-  'H',
-  'H',
-].sort(() => Math.random() - 0.5)
+const images = [
+  'bee',
+  'butterfly',
+  'chameleon',
+  'crab',
+  'cricket',
+  'crocodile',
+  'ducky',
+  'elephant',
+  'fox',
+  'frog',
+  'giraffe',
+  'jellyfish',
+  'koala',
+  'octopus',
+  'owl',
+  'penguin',
+  'praying',
+  'rabbit',
+  'react',
+  'rhinoceros',
+  'shark',
+  'snail',
+  'snake',
+  'stingray',
+  'whale',
+]
+
+const LVL = 8
+
+const problems = [...images.slice(0, LVL), ...images.slice(0, LVL)].sort(
+  () => Math.random() - 0.5
+)
 
 interface IState {
   val: string
@@ -31,18 +46,21 @@ function initializeState(problems: string[]): IState[] {
 
 export function useGame() {
   const [state, setState] = useState(initializeState(problems))
-
   const [pair, setPair] = useState<number[]>([])
+  const [count, setCount] = useState(0)
 
   function handleOpen(idx: number) {
-    if (pair.length == 0) {
-      setPair([idx])
-      return
-    }
     if (pair.includes(idx)) {
       return
     }
     if (pair.length > 1) {
+      return
+    }
+
+    setCount(count + 1)
+
+    if (pair.length == 0) {
+      setPair([idx])
       return
     }
 

@@ -25,7 +25,7 @@ function App() {
   }
 
   return (
-    <div className='h-screen flex items-center justify-center bg-blue-500 text-white'>
+    <div className='h-screen flex items-center justify-center'>
       <div className='flex-col'>
         {arr.map((row, r) => {
           return (
