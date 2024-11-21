@@ -54,9 +54,11 @@ export function useGame() {
     if (lvl > 26) {
       lvl = 26
     }
-    const problems = [...images.slice(0, lvl), ...images.slice(0, lvl)].sort(
-      () => Math.random() - 0.5
-    )
+    const randomizeImages = images.sort(() => Math.random() - 0.5)
+    const problems = [
+      ...randomizeImages.slice(0, lvl),
+      ...randomizeImages.slice(0, lvl),
+    ].sort(() => Math.random() - 0.5)
     const newState = initializeState(problems)
     setState(newState)
   }
