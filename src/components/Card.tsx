@@ -5,10 +5,11 @@ import background from '../assets/background.png'
 type ICard = {
   content: string
   isOpen: boolean
+  size: number
   onFlip: () => void
 }
 
-function Card({ isOpen, onFlip, content }: ICard) {
+function Card({ isOpen, onFlip, content, size }: ICard) {
   const [image, setImage] = useState<any>(null)
 
   useEffect(() => {
@@ -26,7 +27,8 @@ function Card({ isOpen, onFlip, content }: ICard) {
     <div onClick={handleClick}>
       <ReactCardFlip
         isFlipped={isOpen}
-        containerClassName='w-20 h-20 cursor-pointer mx-1 my-1'
+        containerClassName='min-w-20 min-h-20 cursor-pointer p-1'
+        containerStyle={{ width: size, height: size }}
       >
         <div className='absolute w-full h-full flex items-center justify-center border-2 rounded-lg'>
           <img style={{ maxWidth: '40%' }} src={background} alt='background' />
