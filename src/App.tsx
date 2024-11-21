@@ -11,7 +11,7 @@ function optimizeSize2(width: number, height: number, num: number): number {
       break
     }
   }
-  return x
+  return x - 20
 }
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
 
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        const { width, height } = entry.contentRect
+        const { width } = entry.contentRect
         const windowHeight = window.innerHeight - 50
         const maxSize = optimizeSize2(width, windowHeight, state.length)
         setSize(maxSize)
