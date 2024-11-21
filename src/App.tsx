@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Card from './components/Card'
-import { useGame } from './utils/useState'
+import { useGame } from './utils/useGame'
 
 function optimizeSize2(width: number, height: number, num: number): number {
   let x = Math.min(width, height)
@@ -15,9 +15,17 @@ function optimizeSize2(width: number, height: number, num: number): number {
 }
 
 function App() {
-  const { state, handleOpen, isOpen } = useGame()
+  const { state, start, handleOpen, isOpen } = useGame()
   const [size, setSize] = useState(1)
   const containerDiv = useRef(null)
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search)
+    const lvlString = queryParams.get('lvl')
+
+    const lvl = parseInt(lvlString || '26') || 26
+    start(lvl)
+  }, [])
 
   useEffect(() => {
     const container = containerDiv.current
@@ -37,7 +45,7 @@ function App() {
     return () => {
       if (container) resizeObserver.unobserve(container)
     }
-  }, [])
+  }, [state.length])
 
   return (
     <div

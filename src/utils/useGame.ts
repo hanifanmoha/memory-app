@@ -29,11 +29,11 @@ const images = [
   'whale',
 ]
 
-const LVL = 26
+// const LVL = 26
 
-const problems = [...images.slice(0, LVL), ...images.slice(0, LVL)].sort(
-  () => Math.random() - 0.5
-)
+// const problems = [...images.slice(0, LVL), ...images.slice(0, LVL)].sort(
+//   () => Math.random() - 0.5
+// )
 
 interface IState {
   val: string
@@ -46,9 +46,20 @@ function initializeState(problems: string[]): IState[] {
 }
 
 export function useGame() {
-  const [state, setState] = useState(initializeState(problems))
+  const [state, setState] = useState(initializeState([]))
   const [pair, setPair] = useState<number[]>([])
   const [count, setCount] = useState(0)
+
+  function start(lvl: number = 26) {
+    if (lvl > 26) {
+      lvl = 26
+    }
+    const problems = [...images.slice(0, lvl), ...images.slice(0, lvl)].sort(
+      () => Math.random() - 0.5
+    )
+    const newState = initializeState(problems)
+    setState(newState)
+  }
 
   function handleOpen(idx: number) {
     if (pair.includes(idx)) {
@@ -83,5 +94,5 @@ export function useGame() {
     return pair.includes(idx) || state[idx].isSolved
   }
 
-  return { state, handleOpen, isOpen }
+  return { state, start, handleOpen, isOpen }
 }
