@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 const images = [
   'bee',
@@ -85,7 +85,7 @@ export function useGame() {
     if (state[newPair[0]].val === state[newPair[1]].val) {
       state[newPair[0]].isSolved = true
       state[newPair[1]].isSolved = true
-      setState(state)
+      setState([...state])
       setPair([])
     } else {
       setTimeout(() => setPair([]), 1000)
@@ -96,5 +96,20 @@ export function useGame() {
     return pair.includes(idx) || state[idx].isSolved
   }
 
-  return { state, start, handleOpen, isOpen }
+  function isSolved(idx: number) {
+    return state[idx].isSolved
+  }
+
+
+  const isFinished = useMemo(() => {
+    for (let card of state) {
+      if (!card.isSolved) {
+        console.log('IS FINISHED = FALSE', state)
+        return false
+      }
+    }
+    return true
+  }, [state])
+
+  return { state, isFinished, start, handleOpen, isOpen, isSolved }
 }

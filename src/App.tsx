@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import Card from './components/Card'
 import { useGame } from './utils/useGame'
+import congrats from './assets/new-product.png'
+import CONST from './utils/constants'
+import PopUp from './components/PopUp'
 
 function optimizeSize2(width: number, height: number, num: number): number {
   let x = Math.min(width, height)
@@ -14,16 +17,28 @@ function optimizeSize2(width: number, height: number, num: number): number {
   return x - 20
 }
 
+function getLevel() {
+  const queryParams = new URLSearchParams(window.location.search)
+  const lvlString = queryParams.get('lvl')
+  const lvl = parseInt(lvlString || '26') || CONST.MAX_LEVEL
+  return lvl
+}
+
+function setLevel(lvl: number) {
+  const params = new URLSearchParams(window.location.search);
+  params.set('lvl', lvl + '')
+  const newUrl = `${window.location.pathname}?${params.toString()}`;
+  window.history.pushState({}, '', newUrl)
+}
+
 function App() {
-  const { state, start, handleOpen, isOpen } = useGame()
+
+  const { state, isFinished, start, handleOpen, isOpen, isSolved } = useGame()
+  const [lvl, setLvl] = useState(getLevel())
   const [size, setSize] = useState(1)
   const containerDiv = useRef(null)
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search)
-    const lvlString = queryParams.get('lvl')
-
-    const lvl = parseInt(lvlString || '26') || 26
     start(lvl)
   }, [])
 
@@ -47,6 +62,12 @@ function App() {
     }
   }, [state.length])
 
+  function restart(lvl: number) {
+    start(lvl)
+    setLvl(lvl)
+    setLevel(lvl)
+  }
+
   return (
     <div
       ref={containerDiv}
@@ -56,11 +77,14 @@ function App() {
         <Card
           key={`${cell.idx}--${cell.val}`}
           isOpen={isOpen(cell.idx)}
+          isSolved={isSolved(cell.idx)}
           onFlip={() => handleOpen(cell.idx)}
           content={cell.val}
           size={size}
         />
       ))}
+
+      <PopUp key={`${lvl}-${isFinished}`} onRestart={restart} isOpen={isFinished} lvl={lvl} />
     </div>
   )
 }
