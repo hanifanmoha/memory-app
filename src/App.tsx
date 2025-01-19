@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Card from './components/Card'
 import { useGame } from './utils/useGame'
-import congrats from './assets/new-product.png'
 import CONST from './utils/constants'
 import PopUp from './components/PopUp'
 
