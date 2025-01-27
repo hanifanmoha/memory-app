@@ -31,8 +31,7 @@ function setLevel(lvl: number) {
 }
 
 function App() {
-
-  const { state, isFinished, start, handleOpen, isOpen, isSolved } = useGame()
+  const { state, isFinished, start, handleOpen, isOpen, isSolved, moves, matchedPairs } = useGame()
   const [lvl, setLvl] = useState(getLevel())
   const [size, setSize] = useState(1)
   const containerDiv = useRef(null)
@@ -68,22 +67,45 @@ function App() {
   }
 
   return (
-    <div
-      ref={containerDiv}
-      className='min-h-screen flex flex-wrap pt-12 pb-12 mx-auto justify-around align-top overflow-visible'
-    >
-      {state.map((cell) => (
-        <Card
-          key={`${cell.idx}--${cell.val}`}
-          isOpen={isOpen(cell.idx)}
-          isSolved={isSolved(cell.idx)}
-          onFlip={() => handleOpen(cell.idx)}
-          content={cell.val}
-          size={size}
-        />
-      ))}
+    <div className="min-h-screen flex flex-col">
+      {/* Stats Panel */}
+      <div className="w-full flex justify-center p-4">
+        <div className="w-1/2 max-w-4xl flex justify-between gap-4">
+          <div className="flex-1 bg-gray-100 rounded-lg p-4">
+            <h2 className="text-gray-700 text-lg font-medium">Pairs matched</h2>
+            <p className="text-4xl font-bold">{matchedPairs}/{state.length / 2}</p>
+          </div>
+          <div className="flex-1 bg-gray-100 rounded-lg p-4">
+            <h2 className="text-gray-700 text-lg font-medium">Total moves</h2>
+            <p className="text-4xl font-bold">{moves}</p>
+          </div>
+        </div>
+      </div>
 
-      <PopUp key={`${lvl}-${isFinished}`} onRestart={restart} isOpen={isFinished} lvl={lvl} />
+      {/* Game Grid */}
+      <div
+        ref={containerDiv}
+        className='flex flex-wrap pt-4 pb-12 mx-auto justify-around align-top overflow-visible'
+      >
+        {state.map((cell) => (
+          <Card
+            key={`${cell.idx}--${cell.val}`}
+            isOpen={isOpen(cell.idx)}
+            isSolved={isSolved(cell.idx)}
+            onFlip={() => handleOpen(cell.idx)}
+            content={cell.val}
+            size={size}
+          />
+        ))}
+      </div>
+
+      <PopUp
+        key={`${lvl}-${isFinished}`}
+        onRestart={restart}
+        isOpen={isFinished}
+        lvl={lvl}
+        moves={moves}
+      />
     </div>
   )
 }

@@ -61,6 +61,7 @@ export function useGame() {
     ].sort(() => Math.random() - 0.5)
     const newState = initializeState(problems)
     setState(newState)
+    setCount(0)
   }
 
   function handleOpen(idx: number) {
@@ -111,5 +112,8 @@ export function useGame() {
     return true
   }, [state])
 
-  return { state, isFinished, start, handleOpen, isOpen, isSolved }
+  const moves = count
+  const matchedPairs = state.length / 2 - (state.filter(card => !card.isSolved).length) / 2
+
+  return { state, isFinished, start, handleOpen, isOpen, isSolved, moves, matchedPairs }
 }

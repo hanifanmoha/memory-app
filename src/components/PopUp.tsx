@@ -1,14 +1,14 @@
-
 import congrats from '../assets/new-product.png'
 import CONST from '../utils/constants'
 
 type IPopUp = {
     lvl: number,
-    isOpen: boolean
+    isOpen: boolean,
+    moves: number,
     onRestart: (lvl: number) => void
 }
 
-function PopUp({ lvl, isOpen, onRestart }: IPopUp) {
+function PopUp({ lvl, isOpen, moves, onRestart }: IPopUp) {
     // TODO: Fix transition
     return <div
         style={{ opacity: isOpen ? 1 : 0, display: isOpen ? 'flex' : 'none' }}
@@ -17,7 +17,8 @@ function PopUp({ lvl, isOpen, onRestart }: IPopUp) {
             <div className="relative bg-white rounded-lg shadow border-2 text-center">
                 <div className="px-8 py-12 text-center flex flex-col items-center">
                     <img className='w-1/3 mb-8' src={congrats} alt='background' />
-                    <h3 className="mb-8 text-lg font-normal text-gray-500">Yeay you have finished this level!</h3>
+                    <h3 className="mb-2 text-lg font-normal text-gray-500">Yeay you have finished this level!</h3>
+                    <p className="mb-8 text-2xl font-semibold text-gray-700">Total Moves: {moves}</p>
                     <button
                         type="button"
                         onClick={() => onRestart(lvl)}
