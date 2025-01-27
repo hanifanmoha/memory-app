@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Memory Game App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and engaging memory card game built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+![Memory Game Preview](preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Classic memory card matching gameplay
+- Interactive card flipping animations
+- Score tracking
+- Modern, responsive design with Tailwind CSS
+- Cute animal card designs
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Card Flip
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+1. Clone the repository:
+```
+git clone https://github.com/yourusername/memory-game.git
+cd memory-game
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Install dependencies:
 ```
+npm install
+```
+
+3. Run development server:
+```
+npm run dev
+```
+
+4. Open your browser and navigate to:
+```
+http://localhost:5173
+```
+
+## Building for Production
+
+To create a production build:
+```
+npm run build
+```
+
+The build output will be in the `dist` directory.
+
+## How to Play
+
+1. Click on any card to reveal its image
+2. Click on another card to find its match
+3. If the cards match, they stay face up
+4. If they don't match, both cards flip face down
+5. Continue until all pairs are matched
+6. Try to complete the game in as few moves as possible!
+
+## Deployment
+
+This app is configured for easy deployment on Netlify. Simply connect your repository to Netlify and it will automatically build and deploy your app.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
+
