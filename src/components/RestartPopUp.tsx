@@ -1,5 +1,3 @@
-import React from 'react'
-
 type RestartPopUpProps = {
     isOpen: boolean
     onClose: () => void
