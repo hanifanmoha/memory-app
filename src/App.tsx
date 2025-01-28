@@ -3,6 +3,7 @@ import Card from './components/Card'
 import { useGame } from './utils/useGame'
 import CONST from './utils/constants'
 import PopUp from './components/PopUp'
+import RestartPopUp from './components/RestartPopUp'
 
 function optimizeSize2(width: number, height: number, num: number): number {
   let x = Math.min(width, height)
@@ -35,6 +36,8 @@ function App() {
   const [lvl, setLvl] = useState(getLevel())
   const [size, setSize] = useState(1)
   const containerDiv = useRef(null)
+  const [showRestartPopup, setShowRestartPopup] = useState(false)
+  const [showFinishPopup, setShowFinishPopup] = useState(false)
 
   useEffect(() => {
     start(lvl)
@@ -60,10 +63,32 @@ function App() {
     }
   }, [state.length])
 
+  useEffect(() => {
+    if (state.length > 0 && isFinished) {
+      setShowFinishPopup(true)
+    }
+  }, [isFinished, state.length])
+
   function restart(lvl: number) {
     start(lvl)
     setLvl(lvl)
     setLevel(lvl)
+    setShowRestartPopup(false)
+    setShowFinishPopup(false)
+  }
+
+  const handleStatsClick = () => {
+    if (isFinished) {
+      // If game is finished, show the completion popup
+      setShowFinishPopup(true)
+    } else {
+      // If game is not finished, show the restart confirmation popup
+      setShowRestartPopup(true)
+    }
+  }
+
+  const handleRestartConfirm = () => {
+    restart(lvl) // Restart with current level
   }
 
   return (
@@ -71,11 +96,17 @@ function App() {
       {/* Stats Panel */}
       <div className="w-full flex justify-center p-4">
         <div className="w-1/2 max-w-4xl flex justify-between gap-4">
-          <div className="flex-1 bg-gray-100 rounded-lg p-4">
+          <div
+            onClick={handleStatsClick}
+            className="flex-1 bg-gray-100 hover:bg-gray-200 rounded-lg p-4 cursor-pointer transition-colors"
+          >
             <h2 className="text-gray-700 text-lg font-medium">Pairs matched</h2>
             <p className="text-4xl font-bold">{matchedPairs}/{state.length / 2}</p>
           </div>
-          <div className="flex-1 bg-gray-100 rounded-lg p-4">
+          <div
+            onClick={handleStatsClick}
+            className="flex-1 bg-gray-100 hover:bg-gray-200 rounded-lg p-4 cursor-pointer transition-colors"
+          >
             <h2 className="text-gray-700 text-lg font-medium">Total moves</h2>
             <p className="text-4xl font-bold">{moves}</p>
           </div>
@@ -102,9 +133,16 @@ function App() {
       <PopUp
         key={`${lvl}-${isFinished}`}
         onRestart={restart}
-        isOpen={isFinished}
+        isOpen={showFinishPopup}
         lvl={lvl}
         moves={moves}
+        onClose={() => setShowFinishPopup(false)}
+      />
+
+      <RestartPopUp
+        isOpen={showRestartPopup}
+        onClose={() => setShowRestartPopup(false)}
+        onRestart={handleRestartConfirm}
       />
     </div>
   )
