@@ -20,7 +20,7 @@ function optimizeSize2(width: number, height: number, num: number): number {
 function getLevel() {
   const queryParams = new URLSearchParams(window.location.search)
   const lvlString = queryParams.get(CONST.LVL_STRING)
-  const lvl = parseInt(lvlString || String(CONST.MAX_LEVEL)) || CONST.MAX_LEVEL
+  const lvl = parseInt(lvlString || String(CONST.DEFAULT_LEVEL)) || CONST.DEFAULT_LEVEL
   return lvl
 }
 

@@ -1,6 +1,6 @@
 {
     "name": "Memory Game",
-    "short_name": "Memory",
+    "short_name": "Memory Game",
     "description": "A fun memory card matching game",
     "start_url": "/",
     "display": "standalone",
