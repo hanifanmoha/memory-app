@@ -1,5 +1,6 @@
 const CONST = {
-    MAX_LEVEL: 26
+    MAX_LEVEL: 30,
+    LVL_STRING: 'lvl'
 }
 
 export default CONST

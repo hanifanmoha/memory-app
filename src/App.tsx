@@ -18,14 +18,14 @@ function optimizeSize2(width: number, height: number, num: number): number {
 
 function getLevel() {
   const queryParams = new URLSearchParams(window.location.search)
-  const lvlString = queryParams.get('lvl')
-  const lvl = parseInt(lvlString || '26') || CONST.MAX_LEVEL
+  const lvlString = queryParams.get(CONST.LVL_STRING)
+  const lvl = parseInt(lvlString || String(CONST.MAX_LEVEL)) || CONST.MAX_LEVEL
   return lvl
 }
 
 function setLevel(lvl: number) {
   const params = new URLSearchParams(window.location.search);
-  params.set('lvl', lvl + '')
+  params.set(CONST.LVL_STRING, lvl + '')
   const newUrl = `${window.location.pathname}?${params.toString()}`;
   window.history.pushState({}, '', newUrl)
 }

@@ -1,39 +1,48 @@
 import { useMemo, useState } from 'react'
+import CONST from './constants'
 
 const images = [
+  'bat',
   'bee',
   'butterfly',
   'chameleon',
+  'clouds',
   'crab',
   'cricket',
   'crocodile',
-  'ducky',
+  'dinosaur',
   'dragon',
+  'ducky',
+  'earth',
   'elephant',
+  'flower',
+  'forest',
   'fox',
   'frog',
   'giraffe',
   'jellyfish',
   'koala',
+  'monkey',
+  'moon',
   'octopus',
   'owl',
+  'peacock',
   'penguin',
   'praying-mantis',
   'rabbit',
   'rhinoceros-beetle',
+  'river',
   'shark',
   'snail',
   'snake',
   'spider',
   'stingray',
+  'storm',
+  'sun',
+  'turtle',
   'whale',
+  'wolf'
 ]
-
-// const LVL = 26
-
-// const problems = [...images.slice(0, LVL), ...images.slice(0, LVL)].sort(
-//   () => Math.random() - 0.5
-// )
 
 interface IState {
   val: string
@@ -50,9 +59,9 @@ export function useGame() {
   const [pair, setPair] = useState<number[]>([])
   const [count, setCount] = useState(0)
 
-  function start(lvl: number = 26) {
-    if (lvl > 26) {
-      lvl = 26
+  function start(lvl: number = CONST.MAX_LEVEL) {
+    if (lvl > CONST.MAX_LEVEL) {
+      lvl = CONST.MAX_LEVEL
     }
     const randomizeImages = images.sort(() => Math.random() - 0.5)
     const problems = [
