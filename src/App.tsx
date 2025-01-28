@@ -38,6 +38,7 @@ function App() {
   const containerDiv = useRef(null)
   const [showRestartPopup, setShowRestartPopup] = useState(false)
   const [showFinishPopup, setShowFinishPopup] = useState(false)
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     start(lvl)
@@ -68,6 +69,19 @@ function App() {
       setShowFinishPopup(true)
     }
   }, [isFinished, state.length])
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   function restart(lvl: number) {
     start(lvl)
@@ -112,6 +126,12 @@ function App() {
           </div>
         </div>
       </div>
+
+      {!isOnline && (
+        <div className="w-full bg-yellow-100 text-yellow-800 px-4 py-2 text-center">
+          You are currently offline. The game will continue to work, but some features may be limited.
+        </div>
+      )}
 
       {/* Game Grid */}
       <div
